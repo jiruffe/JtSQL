@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JtSQL", "JtSQL\JtSQL.csproj", "{8DD60213-3E93-4043-B0A6-05B439E1F87E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{955F3C7D-8735-4067-8220-40C4C6D288F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8DD60213-3E93-4043-B0A6-05B439E1F87E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD60213-3E93-4043-B0A6-05B439E1F87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DD60213-3E93-4043-B0A6-05B439E1F87E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DD60213-3E93-4043-B0A6-05B439E1F87E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{955F3C7D-8735-4067-8220-40C4C6D288F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{955F3C7D-8735-4067-8220-40C4C6D288F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{955F3C7D-8735-4067-8220-40C4C6D288F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{955F3C7D-8735-4067-8220-40C4C6D288F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {103CE001-556D-4B59-85AC-CB1E9552B0D8}
+	EndGlobalSection
+EndGlobal

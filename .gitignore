@@ -1,0 +1,8 @@
+!.gitignore
+!LICENSE
+!README.md
+.vs/*
+JtSQL/bin/*
+JtSQL/obj/*
+Test/bin/*
+Test/obj/*
