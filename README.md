@@ -4,6 +4,8 @@
 
 An interpreter implemented with .Net Core for JtSQL
 
+[About JtSQL](https://github.com/noear/JtSQL)
+
 ## To-do
 
 - [x] Hello World
