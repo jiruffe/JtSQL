@@ -1,4 +1,4 @@
-[![][neverbuilt]]()
+![][neverbuilt]
 [![][dnc2]](https://dotnet.github.io/)
 [![][vs2017]](https://www.visualstudio.com/)
 
