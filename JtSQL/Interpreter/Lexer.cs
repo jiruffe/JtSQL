@@ -19,6 +19,52 @@ namespace JtSQL.Interpreter {
     /// </summary>
     internal class Lexer {
 
+        #region 状态机
+
+        /// <summary>
+        /// 词法分析状态
+        /// </summary>
+        private enum LexState {
+            /// <summary>
+            /// 默认状态
+            /// </summary>
+            Default,
+            /// <summary>
+            /// 斜杠 /
+            /// </summary>
+            Slash,
+            /// <summary>
+            /// 星号 *
+            /// </summary>
+            Asterisk,
+            /// <summary>
+            /// 换行 \n
+            /// </summary>
+            NewLine,
+            /// <summary>
+            /// 美元符 $
+            /// </summary>
+            Dolllar,
+            /// <summary>
+            /// 小于号 $lt;
+            /// </summary>
+            LessThan,
+            /// <summary>
+            /// 大于号 &gt;
+            /// </summary>
+            GreaterThan,
+            /// <summary>
+            /// 左花括号 {
+            /// </summary>
+            CurlyBracketLeft,
+            /// <summary>
+            /// 右花括号
+            /// </summary>
+            CurlyBracketRight
+        }
+
+        #endregion
+
         #region 成员
 
         /// <summary>
