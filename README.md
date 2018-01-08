@@ -1,4 +1,6 @@
-﻿![][neverbuilt] ![][dnc2] ![][vs2017]
+[![][neverbuilt]]()
+[![][dnc2]](https://dotnet.github.io/)
+[![][vs2017]](https://www.visualstudio.com/)
 
 # JtSQL
 
