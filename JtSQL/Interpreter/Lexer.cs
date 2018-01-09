@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using JtSQL.Util;
 
 namespace JtSQL.Interpreter {
     /// <summary>
@@ -30,17 +31,21 @@ namespace JtSQL.Interpreter {
             /// </summary>
             Default,
             /// <summary>
-            /// 斜杠 /
+            /// 块注释起始斜杠 /
             /// </summary>
-            Slash,
+            BlockCommentStartSlash,
             /// <summary>
-            /// 星号 *
+            /// 块注释起始星号 *
             /// </summary>
-            Asterisk,
+            BlockCommentStartAsterisk,
             /// <summary>
-            /// 换行 \n
+            /// 块注释结束星号 *
             /// </summary>
-            NewLine,
+            BlockCommentEndAsterisk,
+            /// <summary>
+            /// 块注释结束斜杠 /
+            /// </summary>
+            BlockCommentEndSlash,
             /// <summary>
             /// 美元符 $
             /// </summary>
@@ -119,12 +124,42 @@ namespace JtSQL.Interpreter {
             List<Token> list = new List<Token>();
 
             // 上一个Token
-            Token last = new Token(TokenType.Default, 0, 0, "");
+            Token last = new Token(TokenType.Default, 0, 0, string.Empty);
+
+            // 当前状态
+            LexState now = LexState.Default;
 
             // 字符串转为字符数组
             char[] jtsql_chars = jtsql.ToCharArray();
 
-            // TODO:
+            // 长度
+            long jtsql_chars_length = jtsql_chars.GetLongLength(0);
+
+            // 遍历字符
+            for (var i = 0; i < jtsql_chars_length; i++) {
+
+                // 当前字符
+                char c = jtsql_chars[i];
+
+                // 根据当前状态找不同的字符
+                switch (now) {
+
+                    case LexState.Default:
+                        if (c.IsSlash()) {
+
+                        }
+                        break;
+
+                    default:
+                        break;
+
+                }
+
+                // 下次循环
+                next_loop:
+                continue;
+
+            }
 
             return list;
 

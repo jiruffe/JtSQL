@@ -24,21 +24,9 @@ namespace JtSQL.Interpreter {
         /// </summary>
         Default,
         /// <summary>
-        /// 块注释起始 /*
+        /// 注释
         /// </summary>
-        BlockCommentStart,
-        /// <summary>
-        /// 块注释结束 */
-        /// </summary>
-        BlockCommentEnd,
-        /// <summary>
-        /// 行注释起始 //
-        /// </summary>
-        InlineCommentStart,
-        /// <summary>
-        /// 行注释结束 \n
-        /// </summary>
-        InlineCommentEnd,
+        Comment,
         /// <summary>
         /// JS内嵌SQL起始 $&lt;
         /// </summary>
