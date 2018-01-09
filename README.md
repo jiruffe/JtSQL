@@ -38,6 +38,13 @@ JtSQL.JavaScriptTemplatedStructuredQueryLanguage.Run(new JtSQL.Linq.Work("Your J
     for (;;) {if (condition) {var result = $<SELECT * FROM {{table}};>;}}
     ```
     are avaliable.
+	
+* Supports inline comments.
+
+	```js
+	// get id by username
+	var user_id = $<SELECT user_id FROM `user` WHERE username = {{username}} LIMIT 1;>
+	```
 
 ## Examples
 
