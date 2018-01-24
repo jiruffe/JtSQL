@@ -18,7 +18,7 @@ An interpreter implemented with .Net Core for JtSQL
 ## How-to
 
 ```csharp
-JtSQL.JavaScriptTemplatedStructuredQueryLanguage.Run(new JtSQL.Linq.Work("Your JtSQL code here"));
+Chakilo.JtSQL.Run(new Chakilo.Linq.Work("Your JtSQL code here"));
 ```
 
 ## Differences from JtSQL-for-Java
