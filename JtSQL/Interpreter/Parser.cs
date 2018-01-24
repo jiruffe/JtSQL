@@ -1,7 +1,7 @@
 ﻿// ====================================================================== //
 //
 //  Parser
-//  JtSQL.Interpreter
+//  Chakilo.Interpreter
 // 
 //  Created by Chakilo on 12/21/2017 5:27:31 PM.
 //  Copyright © 2017 Chakilo. All rights reserved.
@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace JtSQL.Interpreter {
+namespace Chakilo.Interpreter {
     /// <summary>
     /// 语法分析器
     /// </summary>

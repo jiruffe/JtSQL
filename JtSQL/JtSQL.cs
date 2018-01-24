@@ -1,7 +1,7 @@
 ﻿// ====================================================================== //
 //
-//  JavaScriptTemplatedStructuredQueryLanguage
 //  JtSQL
+//  Chakilo
 // 
 //  Created by Chakilo on 12/25/2017 2:07:17 PM.
 //  Copyright © 2017 Chakilo. All rights reserved.
@@ -9,14 +9,15 @@
 // 
 // ====================================================================== //
 
-using JtSQL.Delegate;
-using JtSQL.Linq;
+using Chakilo;
+using Chakilo.Delegate;
+using Chakilo.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace JtSQL {
-    public static class JavaScriptTemplatedStructuredQueryLanguage {
+namespace Chakilo {
+    public static class JtSQL {
 
         #region 成员
 
@@ -40,7 +41,7 @@ namespace JtSQL {
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static JavaScriptTemplatedStructuredQueryLanguage() {
+        static JtSQL() {
             _actuator = Actuator.Instance;
         }
 

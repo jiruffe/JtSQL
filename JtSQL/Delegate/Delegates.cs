@@ -1,7 +1,7 @@
 ﻿// ====================================================================== //
 //
 //  Delegates
-//  JtSQL.Delegate
+//  Chakilo.Delegate
 // 
 //  Created by Chakilo on 12/22/2017 5:33:11 PM.
 //  Copyright © 2017 Chakilo. All rights reserved.
@@ -9,7 +9,7 @@
 // 
 // ====================================================================== //
 
-namespace JtSQL.Delegate {
+namespace Chakilo.Delegate {
 
     /// <summary>
     /// 翻译完成后

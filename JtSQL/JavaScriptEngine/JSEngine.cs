@@ -1,7 +1,7 @@
 ﻿// ====================================================================== //
 //
 //  JSEngine
-//  JtSQL.JavaScriptEngine
+//  Chakilo.JavaScriptEngine
 // 
 //  Created by konar on 12/28/2017 4:07:58 PM.
 //  Copyright © 2017 konar. All rights reserved.
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace JtSQL.JavaScriptEngine {
+namespace Chakilo.JavaScriptEngine {
     internal class JSEngine {
 
         #region 成员

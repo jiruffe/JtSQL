@@ -1,7 +1,7 @@
 ﻿// ====================================================================== //
 //
 //  Actuator
-//  JtSQL
+//  Chakilo
 // 
 //  Created by Chakilo on 12/21/2017 5:50:20 PM.
 //  Copyright © 2017 Chakilo. All rights reserved.
@@ -15,13 +15,13 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
-using JtSQL.Delegate;
-using JtSQL.Exception;
-using JtSQL.Interpreter;
-using JtSQL.Linq;
-using JtSQL.SqlExecutor;
+using Chakilo.Delegate;
+using Chakilo.Exception;
+using Chakilo.Interpreter;
+using Chakilo.Linq;
+using Chakilo.SqlExecutor;
 
-namespace JtSQL {
+namespace Chakilo {
     /// <summary>
     /// JtSQL致动器
     /// </summary>

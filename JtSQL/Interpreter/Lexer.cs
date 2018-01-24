@@ -1,7 +1,7 @@
 ﻿// ====================================================================== //
 //
 //  Lexer
-//  JtSQL.Interpreter
+//  Chakilo.Interpreter
 // 
 //  Created by Chakilo on 12/21/2017 5:26:35 PM.
 //  Copyright © 2017 Chakilo. All rights reserved.
@@ -12,9 +12,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using JtSQL.Util;
+using Chakilo.Util;
 
-namespace JtSQL.Interpreter {
+namespace Chakilo.Interpreter {
     /// <summary>
     /// 词法分析器
     /// </summary>
@@ -31,9 +31,9 @@ namespace JtSQL.Interpreter {
             /// </summary>
             Default,
             /// <summary>
-            /// 块注释起始斜杠 /
+            /// 块注释/行注释起始斜杠 /
             /// </summary>
-            BlockCommentStartSlash,
+            CommentStartSlash,
             /// <summary>
             /// 块注释起始星号 *
             /// </summary>
@@ -146,7 +146,11 @@ namespace JtSQL.Interpreter {
 
                     case LexState.Default:
                         if (c.IsSlash()) {
-
+                            now = LexState.CommentStartSlash;
+                        } else if (c.IsDollar()) {
+                            now = LexState.Dolllar;
+                        } else if (c.IsCurlyBracketLeft()) {
+                            now = LexState.CurlyBracketLeft;
                         }
                         break;
 

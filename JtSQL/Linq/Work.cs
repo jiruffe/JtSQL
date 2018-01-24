@@ -1,7 +1,7 @@
 ﻿// ====================================================================== //
 //
 //  Work
-//  JtSQL.Linq
+//  Chakilo.Linq
 // 
 //  Created by Chakilo on 12/25/2017 10:33:19 AM.
 //  Copyright © 2017 Chakilo. All rights reserved.
@@ -12,10 +12,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using JtSQL.Delegate;
-using JtSQL.Exception;
+using Chakilo.Delegate;
+using Chakilo.Exception;
 
-namespace JtSQL.Linq {
+namespace Chakilo.Linq {
     /// <summary>
     /// JtSQL作业
     /// </summary>

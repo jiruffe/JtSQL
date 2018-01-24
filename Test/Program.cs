@@ -1,6 +1,6 @@
 ﻿using System;
-using JtSQL;
-using JtSQL.Linq;
+using Chakilo;
+using Chakilo.Linq;
 
 namespace Test {
     class Program {
