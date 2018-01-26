@@ -14,13 +14,23 @@ using System;
 namespace Chakilo.Exception {
 
     /// <summary>
-    /// 异常 在jtsql运行时修改代码
+    /// jtsql异常基类
     /// </summary>
-    public class JtSQLChangingCodeDuringWorkRunningException : System.Exception { }
+    public abstract class JtSQLException : System.Exception { }
 
     /// <summary>
-    /// 异常 jtsql已经在运行
+    /// jtsql异常 在jtsql运行时修改代码
     /// </summary>
-    public class JtSQLWorkAlreadyRunningException : System.Exception { }
+    public class JtSQLChangingCodeDuringWorkRunningException : JtSQLException { }
+
+    /// <summary>
+    /// jtsql异常 jtsql已经在运行
+    /// </summary>
+    public class JtSQLWorkAlreadyRunningException : JtSQLException { }
+
+    /// <summary>
+    /// jtsql异常 jtsql还未运行
+    /// </summary>
+    public class JtSQLWorkNotRunningException : JtSQLException { }
 
 }

@@ -18,7 +18,7 @@ namespace Chakilo.Interpreter {
     /// <summary>
     /// 词法分析器
     /// </summary>
-    internal class Lexer {
+    internal static class Lexer {
 
         #region 状态机
 
@@ -34,6 +34,10 @@ namespace Chakilo.Interpreter {
             /// 块注释/行注释起始斜杠 /
             /// </summary>
             CommentStartSlash,
+            /// <summary>
+            /// 行注释第二个斜杠
+            /// </summary>
+            InlineCommentSecondSlash,
             /// <summary>
             /// 块注释起始星号 *
             /// </summary>
@@ -72,19 +76,9 @@ namespace Chakilo.Interpreter {
 
         #region 成员
 
-        /// <summary>
-        /// 保存单例
-        /// </summary>
-        private static readonly Lazy<Lexer> _instance = new Lazy<Lexer>(() => new Lexer());
-
         #endregion
 
         #region 访问器
-
-        /// <summary>
-        /// 获取单例
-        /// </summary>
-        public static Lexer Instance { get { return _instance.Value; } }
 
         #endregion
 
@@ -93,7 +87,7 @@ namespace Chakilo.Interpreter {
         /// <summary>
         /// 私有的构造器
         /// </summary>
-        private Lexer() {
+        static Lexer() {
             // 初始化
             Init();
         }
@@ -107,18 +101,18 @@ namespace Chakilo.Interpreter {
         /// <summary>
         /// 初始化
         /// </summary>
-        private void Init() { }
+        private static void Init() { }
 
         #endregion
 
         #region 公开方法
 
         /// <summary>
-        /// 找出TOKEN
+        /// 词法分析 得到TOKEN列表
         /// </summary>
         /// <param name="jtsql"></param>
         /// <returns></returns>
-        public static List<Token> GetTokens(string jtsql) {
+        public static List<Token> Tokenize(string jtsql) {
 
             // 结果
             List<Token> list = new List<Token>();
@@ -135,6 +129,9 @@ namespace Chakilo.Interpreter {
             // 长度
             long jtsql_chars_length = jtsql_chars.GetLongLength(0);
 
+            // Token起始索引
+            long temp_token_start_index = 0;
+
             // 遍历字符
             for (var i = 0; i < jtsql_chars_length; i++) {
 
@@ -144,12 +141,16 @@ namespace Chakilo.Interpreter {
                 // 根据当前状态找不同的字符
                 switch (now) {
 
+                    // 普通状态 可以进入任何Token状态
                     case LexState.Default:
                         if (c.IsSlash()) {
+                            // 注释起始 斜杠 /
                             now = LexState.CommentStartSlash;
                         } else if (c.IsDollar()) {
+                            // JS内嵌SQL起始 $
                             now = LexState.Dolllar;
                         } else if (c.IsCurlyBracketLeft()) {
+                            // SQL内嵌JS起始 {
                             now = LexState.CurlyBracketLeft;
                         }
                         break;

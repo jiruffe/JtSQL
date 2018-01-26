@@ -17,23 +17,13 @@ namespace Chakilo.Interpreter {
     /// <summary>
     /// 语法分析器
     /// </summary>
-    internal class Parser {
+    internal static class Parser {
 
         #region 成员
-
-        /// <summary>
-        /// 保存单例
-        /// </summary>
-        private static readonly Lazy<Parser> _instance = new Lazy<Parser>(() => new Parser());
 
         #endregion
 
         #region 访问器
-
-        /// <summary>
-        /// 获取单例
-        /// </summary>
-        public static Parser Instance { get { return _instance.Value; } }
 
         #endregion
 
@@ -42,7 +32,7 @@ namespace Chakilo.Interpreter {
         /// <summary>
         /// 私有的构造器
         /// </summary>
-        private Parser() {
+        static Parser() {
             // 初始化
             Init();
         }
@@ -56,7 +46,7 @@ namespace Chakilo.Interpreter {
         /// <summary>
         /// 初始化
         /// </summary>
-        private void Init() { }
+        private static void Init() { }
 
         #endregion
 

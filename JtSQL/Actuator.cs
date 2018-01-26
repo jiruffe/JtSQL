@@ -92,7 +92,7 @@ namespace Chakilo {
         }
 
         /// <summary>
-        /// 执行
+        /// 执行作业
         /// </summary>
         /// <param name="work"></param>
         internal void Run(Work work) {
@@ -104,11 +104,19 @@ namespace Chakilo {
 
             // 已经在运行
             if (work.IsRunning || null != _work_lk_thread.GetValueOrDefault(work)) {
+                if (!work.IsRunning) {
+                    work.IsRunning = true;
+                }
                 throw new JtSQLWorkAlreadyRunningException();
             }
 
             // 翻译
             if (!work.IsParsed) {
+                // 词法分析
+
+                // 语法分析
+
+                // 翻译
 
             }
 
@@ -117,6 +125,27 @@ namespace Chakilo {
 
             // 加入到字典
             
+        }
+
+        /// <summary>
+        /// 中止作业
+        /// </summary>
+        /// <param name="work"></param>
+        internal void Abort(Work work) {
+
+            // null
+            if (null == work) {
+                throw new ArgumentNullException();
+            }
+
+            // 还未运行
+            if (!work.IsRunning || null == _work_lk_thread.GetValueOrDefault(work)) {
+                if (work.IsRunning) {
+                    work.IsRunning = false;
+                }
+                throw new JtSQLWorkNotRunningException();
+            }
+
         }
 
         #endregion

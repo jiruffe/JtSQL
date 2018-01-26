@@ -56,11 +56,19 @@ namespace Chakilo {
         #region 公开方法
 
         /// <summary>
-        /// 执行
+        /// 执行作业
         /// </summary>
-        /// <param name="work">The JtSQL.Linq.Work to be excuted.</param>
+        /// <param name="work">The work to be excuted.</param>
         public static void Run(Work work) {
             _actuator.Run(work);
+        }
+
+        /// <summary>
+        /// 中止作业
+        /// </summary>
+        /// <param name="work">The work to be aborted.</param>
+        public static void Abort(Work work) {
+            _actuator.Abort(work);
         }
 
         #endregion
