@@ -36,7 +36,7 @@ namespace Chakilo.Linq {
         /// <summary>
         /// 是否完成翻译
         /// </summary>
-        private bool _is_parsed;
+        private bool _is_compiled;
 
         /// <summary>
         /// 是否在运行
@@ -50,7 +50,7 @@ namespace Chakilo.Linq {
         /// <summary>
         /// 翻译完成后
         /// </summary>
-        public static event AfterParsingDelegate AfterParsing;
+        public static event AfterCompilingDelegate AfterCompiling;
 
         /// <summary>
         /// SQL执行前
@@ -75,7 +75,7 @@ namespace Chakilo.Linq {
                 if (_is_running)
                     throw new JtSQLChangingCodeDuringWorkRunningException();
                 _jtsql_code = value;
-                _is_parsed = false;
+                _is_compiled = false;
             }
         }
 
@@ -88,16 +88,16 @@ namespace Chakilo.Linq {
                 if (_is_running)
                     throw new JtSQLChangingCodeDuringWorkRunningException();
                 _js_code = value;
-                _is_parsed = true;
+                _is_compiled = true;
                 // 调用翻译完成
-                AfterParsing?.Invoke(value);
+                AfterCompiling?.Invoke(value);
             }
         }
 
         /// <summary>
         /// 是否完成翻译
         /// </summary>
-        public bool IsParsed { get { return _is_parsed; } }
+        public bool IsCompiled { get { return _is_compiled; } }
 
         /// <summary>
         /// 是否在运行
@@ -115,7 +115,7 @@ namespace Chakilo.Linq {
         public Work(string jtsql) {
             _jtsql_code = jtsql;
             _js_code = "";
-            _is_parsed = false;
+            _is_compiled = false;
             _is_running = false;
         }
 

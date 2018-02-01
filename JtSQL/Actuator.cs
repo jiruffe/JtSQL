@@ -88,6 +88,16 @@ namespace Chakilo {
         /// <param name="jtsql">The JtSQL code</param>
         /// <returns>The js code or null if error</returns>
         internal string TryParse(string jtsql) {
+
+            // 词法分析
+            List<Token> token_list = Lexer.Tokenize(jtsql);
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(token_list));
+
+            // 语法分析
+
+            // 翻译
+
+
             return null;
         }
 
@@ -111,13 +121,8 @@ namespace Chakilo {
             }
 
             // 翻译
-            if (!work.IsParsed) {
-                // 词法分析
-
-                // 语法分析
-
-                // 翻译
-
+            if (!work.IsCompiled) {
+                work.JsCode = TryParse(work.JtsqlCode);
             }
 
             // 运行

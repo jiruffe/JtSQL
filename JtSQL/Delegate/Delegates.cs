@@ -15,7 +15,7 @@ namespace Chakilo.Delegate {
     /// 翻译完成后
     /// </summary>
     /// <param name="js">翻译后的JavaScript代码</param>
-    public delegate void AfterParsingDelegate(string js);
+    public delegate void AfterCompilingDelegate(string js);
 
     /// <summary>
     /// SQL执行前
