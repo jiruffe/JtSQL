@@ -191,6 +191,8 @@ namespace Chakilo.Interpreter {
                             is_entering_new_state = true;
                             // SQL内嵌JS起始 {
                             now = LexState.CurlyBracketLeft;
+                        } else if (c.IsGreaterThan()) {
+
                         }
 
                         // 进入了新状态
@@ -278,11 +280,17 @@ namespace Chakilo.Interpreter {
                         if (c.IsLessThan()) {
                             // 产生新token标志
                             is_producing_new_token = true;
+                        } else {
+                            // 返回普通状态
+                            now = LexState.Default;
                         }
 
                         // 产生新token
                         if (is_producing_new_token) {
+                            last_token = ProduceNewToken(jtsql, token_list, last_token, temp_token_start_index, i, TokenType.SqlInJsStart);
 
+                            // 返回至普通状态
+                            now = LexState.Default;
                         }
 
                         break;

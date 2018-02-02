@@ -53,22 +53,22 @@ namespace Chakilo.Interpreter {
         /// <summary>
         /// TOKEN类型
         /// </summary>
-        public TokenType Type;
+        internal TokenType Type;
 
         /// <summary>
         /// 起始索引
         /// </summary>
-        public long IndexStart;
+        internal long IndexStart;
 
         /// <summary>
         /// 结束索引
         /// </summary>
-        public long IndexEnd;
+        internal long IndexEnd;
 
         /// <summary>
         /// 原始字符串
         /// </summary>
-        public string OriginalString;
+        internal string OriginalString;
 
         /// <summary>
         /// 构造器
