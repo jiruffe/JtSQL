@@ -11,7 +11,7 @@ An interpreter implemented with .Net Core for JtSQL
 ## To-do
 
 - [x] Hello World
-- [ ] Lexer
+- [x] Lexer
 - [ ] Parser
 - [ ] SQL Executor
 
