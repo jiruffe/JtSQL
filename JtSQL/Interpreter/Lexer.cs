@@ -113,16 +113,16 @@ namespace Chakilo.Interpreter {
         /// <param name="end_index"></param>
         /// <param name="tokenType"></param>
         /// <returns></returns>
-        private static Token ProduceNewToken(string jtsql, List<Token> token_list, Token last_token, long start_index, long end_index, TokenType tokenType) {
+        private static Token ProduceNewToken(string jtsql, List<Token> token_list, Token last_token, long start_index, long end_index, long line_number, TokenType tokenType) {
             // 与上个token之间有普通js代码
             if (last_token.IndexEnd + 1 != start_index) {
                 // 先产生前面的普通token
-                Token dft_token = new Token(TokenType.Default, last_token.IndexEnd + 1, start_index - 1, jtsql.Substring(Convert.ToInt32(last_token.IndexEnd + 1), Convert.ToInt32(start_index - last_token.IndexEnd - 1)));
+                Token dft_token = new Token(TokenType.Default, last_token.IndexEnd + 1, start_index - 1, line_number, jtsql.Substring(Convert.ToInt32(last_token.IndexEnd + 1), Convert.ToInt32(start_index - last_token.IndexEnd - 1)));
                 token_list.Add(dft_token);
                 last_token = dft_token;
             }
             // 新token
-            Token new_token = new Token(tokenType, start_index, end_index, jtsql.Substring(Convert.ToInt32(start_index), Convert.ToInt32(end_index - start_index + 1)));
+            Token new_token = new Token(tokenType, start_index, end_index, line_number, jtsql.Substring(Convert.ToInt32(start_index), Convert.ToInt32(end_index - start_index + 1)));
             token_list.Add(new_token);
 
             return new_token;
@@ -139,11 +139,15 @@ namespace Chakilo.Interpreter {
         /// <returns></returns>
         public static List<Token> Tokenize(string jtsql) {
 
+            // 空
+            if (null == jtsql)
+                throw new ArgumentNullException();
+
             // 结果
             List<Token> token_list = new List<Token>();
 
             // 上一个Token
-            Token last_token = new Token(TokenType.Default, -1, -1, string.Empty);
+            Token last_token = new Token(TokenType.Default, -1, -1, 1, string.Empty);
              
             // 当前状态
             LexState now = LexState.Default;
@@ -157,6 +161,9 @@ namespace Chakilo.Interpreter {
             // Token起始索引
             long temp_token_start_index = 0;
 
+            // 当前行数
+            long line = 1;
+
             // 遍历字符
             for (var i = 0; i < jtsql_chars_length; i++) {
 
@@ -168,6 +175,9 @@ namespace Chakilo.Interpreter {
 
                 // 产生新token标志
                 bool is_producing_new_token = false;
+
+                // 新token类型
+                TokenType new_token_type = TokenType.Default;
 
                 // 根据当前状态找不同的字符
                 switch (now) {
@@ -186,13 +196,21 @@ namespace Chakilo.Interpreter {
                             is_entering_new_state = true;
                             // JS内嵌SQL起始 $
                             now = LexState.Dolllar;
+                        } else if (c.IsGreaterThan()) {
+                            // 进入状态标记
+                            is_entering_new_state = true;
+                            // JS内嵌SQL结束 >
+                            now = LexState.GreaterThan;
                         } else if (c.IsCurlyBracketLeft()) {
                             // 进入状态标记
                             is_entering_new_state = true;
                             // SQL内嵌JS起始 {
                             now = LexState.CurlyBracketLeft;
-                        } else if (c.IsGreaterThan()) {
-
+                        } else if (c.IsCurlyBracketRight()) {
+                            // 进入状态标记
+                            is_entering_new_state = true;
+                            // SQL内嵌JS结束 }
+                            now = LexState.CurlyBracketRight;
                         }
 
                         // 进入了新状态
@@ -229,15 +247,7 @@ namespace Chakilo.Interpreter {
                         if (c.IsNewLine()) {
                             // 产生新token标志
                             is_producing_new_token = true;
-                        }
-
-                        // 产生新token
-                        if (is_producing_new_token) {
-
-                            last_token = ProduceNewToken(jtsql, token_list, last_token, temp_token_start_index, i, TokenType.Comment);
-
-                            // 返回至普通状态
-                            now = LexState.Default;
+                            new_token_type = TokenType.Comment;
                         }
 
                         break;
@@ -254,45 +264,76 @@ namespace Chakilo.Interpreter {
                         if (c.IsSlash()) {
                             // 产生新token标志
                             is_producing_new_token = true;
+                            new_token_type = TokenType.Comment;
                         } else if (c.IsAsterisk()) {
-
+                            // 还是星号 什么也不做 接着找
                         } else {
                             // 重新寻找星号 *
                             now = LexState.BlockCommentStartAsterisk;
-                        }
-
-                        // 产生新token
-                        if (is_producing_new_token) {
-                            
-                            last_token = ProduceNewToken(jtsql, token_list, last_token, temp_token_start_index, i, TokenType.Comment);
-
-                            // 返回至普通状态
-                            now = LexState.Default;
                         }
 
                         break;
 
                     #endregion
 
-                    #region 内嵌状态
+                    #region 内嵌状态 $< >
 
                     case LexState.Dolllar:
                         if (c.IsLessThan()) {
                             // 产生新token标志
                             is_producing_new_token = true;
+                            new_token_type = TokenType.SqlInJsStart;
                         } else {
                             // 返回普通状态
                             now = LexState.Default;
                         }
 
-                        // 产生新token
-                        if (is_producing_new_token) {
-                            last_token = ProduceNewToken(jtsql, token_list, last_token, temp_token_start_index, i, TokenType.SqlInJsStart);
+                        break;
 
-                            // 返回至普通状态
+                    case LexState.GreaterThan:
+                        if (c.IsBlank() && !c.IsNewLine()) {
+                            // 空白符 什么也不做
+                        } else if (c.IsSemicolon() || c.IsNewLine()) {
+                            // 分号和换行 产生新token
+                            is_producing_new_token = true;
+                            new_token_type = TokenType.SqlInJsEnd;
+
+                            // 这个字符实际上是提前读取 因此须重新判断
+                            i--;
+
+                        } else {
+                            // 返回普通状态
                             now = LexState.Default;
+                            // 需要重新判断当前字符
+                            goto re_loop;
                         }
 
+                        break;
+
+                    #endregion
+
+                    #region 内嵌状态 {{ }}
+
+                    case LexState.CurlyBracketLeft:
+                        if (c.IsCurlyBracketLeft()) {
+                            // 产生新token标志
+                            is_producing_new_token = true;
+                            new_token_type = TokenType.JsInSqlStart;
+                        } else {
+                            // 返回普通状态
+                            now = LexState.Default;
+                        }
+                        break;
+
+                    case LexState.CurlyBracketRight:
+                        if (c.IsCurlyBracketRight()) {
+                            // 产生新token标志
+                            is_producing_new_token = true;
+                            new_token_type = TokenType.JsInSqlEnd;
+                        } else {
+                            // 返回普通状态
+                            now = LexState.Default;
+                        }
                         break;
 
                     #endregion
@@ -302,8 +343,25 @@ namespace Chakilo.Interpreter {
 
                 }
 
+                // 产生新token
+                if (is_producing_new_token) {
+                    last_token = ProduceNewToken(jtsql, token_list, last_token, temp_token_start_index, i, line, new_token_type);
+
+                    // 返回至普通状态
+                    now = LexState.Default;
+                }
+
+                // 行数
+                if (c.IsNewLine())
+                    line++;
+
                 // 下次循环
                 next_loop:
+                continue;
+
+                // 重进本次循环
+                re_loop:
+                i--;
                 continue;
 
             }

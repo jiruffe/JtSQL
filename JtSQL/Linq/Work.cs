@@ -72,8 +72,14 @@ namespace Chakilo.Linq {
         public string JtsqlCode {
             get { return _jtsql_code; }
             set {
+                // 正在运行 不可更改
                 if (_is_running)
                     throw new JtSQLChangingCodeDuringWorkRunningException();
+
+                // 以换行符结尾
+                if (null != value && !value.EndsWith('\n'))
+                    value += '\n';
+
                 _jtsql_code = value;
                 _is_compiled = false;
             }
@@ -87,6 +93,12 @@ namespace Chakilo.Linq {
             internal set {
                 if (_is_running)
                     throw new JtSQLChangingCodeDuringWorkRunningException();
+
+
+                // 以换行符结尾
+                if (null != value && !value.EndsWith('\n'))
+                    value += '\n';
+
                 _js_code = value;
                 _is_compiled = true;
                 // 调用翻译完成
@@ -113,6 +125,15 @@ namespace Chakilo.Linq {
         /// </summary>
         /// <param name="jtsql"></param>
         public Work(string jtsql) {
+
+            // 空
+            if (null == jtsql)
+                throw new ArgumentNullException();
+
+            // 以换行符结尾
+            if (null != jtsql && !jtsql.EndsWith('\n'))
+                jtsql += '\n';
+
             _jtsql_code = jtsql;
             _js_code = "";
             _is_compiled = false;

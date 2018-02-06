@@ -53,22 +53,27 @@ namespace Chakilo.Interpreter {
         /// <summary>
         /// TOKEN类型
         /// </summary>
-        internal TokenType Type;
+        public TokenType Type;
 
         /// <summary>
         /// 起始索引
         /// </summary>
-        internal long IndexStart;
+        public long IndexStart;
 
         /// <summary>
         /// 结束索引
         /// </summary>
-        internal long IndexEnd;
+        public long IndexEnd;
 
         /// <summary>
         /// 原始字符串
         /// </summary>
-        internal string OriginalString;
+        public string OriginalString;
+
+        /// <summary>
+        /// 行数
+        /// </summary>
+        public long LineNumber;
 
         /// <summary>
         /// 构造器
@@ -77,10 +82,11 @@ namespace Chakilo.Interpreter {
         /// <param name="indexStart"></param>
         /// <param name="indexEnd"></param>
         /// <param name="originalString"></param>
-        internal Token(TokenType type, long indexStart, long indexEnd, string originalString) {
+        internal Token(TokenType type, long indexStart, long indexEnd, long lineNumber, string originalString) {
             Type = type;
             IndexStart = indexStart;
             IndexEnd = indexEnd;
+            LineNumber = lineNumber;
             OriginalString = originalString;
         }
 
