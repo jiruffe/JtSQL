@@ -16,7 +16,7 @@ using Chakilo.Util;
 
 namespace Chakilo.Interpreter {
     /// <summary>
-    /// 词法分析器
+    /// 词法分析器 lexical analyser
     /// </summary>
     internal static class Lexer {
 
@@ -137,7 +137,7 @@ namespace Chakilo.Interpreter {
         /// </summary>
         /// <param name="jtsql"></param>
         /// <returns></returns>
-        public static List<Token> Tokenize(string jtsql) {
+        internal static List<Token> Tokenize(string jtsql) {
 
             // 空
             if (null == jtsql)
@@ -148,7 +148,7 @@ namespace Chakilo.Interpreter {
 
             // 上一个Token
             Token last_token = new Token(TokenType.Default, -1, -1, 1, string.Empty);
-             
+            
             // 当前状态
             LexState now = LexState.Default;
 

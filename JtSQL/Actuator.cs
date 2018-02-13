@@ -25,7 +25,7 @@ namespace Chakilo {
     /// <summary>
     /// JtSQL致动器
     /// </summary>
-    internal class Actuator {
+    internal sealed class Actuator {
 
         #region 成员
 

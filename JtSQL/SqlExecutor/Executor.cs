@@ -17,7 +17,7 @@ namespace Chakilo.SqlExecutor {
     /// <summary>
     /// SQL执行器
     /// </summary>
-    internal class Executor {
+    internal sealed class Executor {
 		
     }
 }
