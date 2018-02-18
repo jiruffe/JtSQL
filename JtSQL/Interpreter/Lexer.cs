@@ -293,8 +293,8 @@ namespace Chakilo.Interpreter {
                     case LexState.GreaterThan:
                         if (c.IsBlank() && !c.IsNewLine()) {
                             // 空白符 什么也不做
-                        } else if (c.IsSemicolon() || c.IsNewLine()) {
-                            // 分号和换行 产生新token
+                        } else if (c.IsSemicolon() || c.IsNewLine() || c.IsCurlyBracketRight()) {
+                            // 右花括号、分号和换行 产生新token
                             is_producing_new_token = true;
                             new_token_type = TokenType.SqlInJsEnd;
 
