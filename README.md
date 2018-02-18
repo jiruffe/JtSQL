@@ -23,23 +23,23 @@ Chakilo.JtSQL.Run(new Chakilo.Linq.Work("Your JtSQL code here"));
 
 ## Differences from JtSQL-for-Java
 
-* Supports nested `if` or `for` statements without additional semicolons.
+* Semicolons may be omitted.
 
     Both
     ```js
     for (;;) {
         if (condition) {
             var result = $<SELECT * FROM {{table}};>;
-        }
-    }
+        };
+    };
     ```
     and
     ```js
-    for (;;) {if (condition) {var result = $<SELECT * FROM {{table}};>;}}
+    for (;;) {if (condition) {var result = $<SELECT * FROM {{table}}>}}
     ```
     are avaliable.
 	
-* Supports inline comments.
+* Inline comments supported.
 
 	```js
 	// get id by username
