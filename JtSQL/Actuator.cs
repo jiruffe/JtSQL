@@ -12,17 +12,15 @@
 // DEBUG模式
 #define JTSQL_DEBUG
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
-using System.Text;
-using System.Threading;
 using Chakilo.Delegate;
 using Chakilo.Exception;
 using Chakilo.Interpreter;
-using Chakilo.Linq;
 using Chakilo.JtsqlExecutor;
+using Chakilo.Linq;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Chakilo {
     /// <summary>
@@ -90,7 +88,7 @@ namespace Chakilo {
         /// </summary>
         /// <param name="jtsql">The JtSQL code</param>
         /// <returns>The js code or null if error</returns>
-        internal string TryParse(string jtsql) {
+        internal string Compile(string jtsql) {
 
             // 词法分析
             List<Token> token_list = Lexer.Tokenize(jtsql);
@@ -99,11 +97,13 @@ namespace Chakilo {
             string code_compiled = Parser.Parse(token_list);
 
 #if JTSQL_DEBUG
+
             Console.WriteLine(jtsql);
-            Console.WriteLine("");
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(token_list));
-            Console.WriteLine("");
+            Console.WriteLine();
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(token_list, Newtonsoft.Json.Formatting.Indented));
+            Console.WriteLine();
             Console.WriteLine(code_compiled);
+
 #endif
 
             return code_compiled;
@@ -130,13 +130,14 @@ namespace Chakilo {
 
             // 翻译
             if (!work.IsCompiled) {
-                work.JsCode = TryParse(work.JtsqlCode);
+                work.JsCode = Compile(work.JtsqlCode);
             }
 
             // 运行
 
 
             // 加入到字典
+
             
         }
 
@@ -158,6 +159,12 @@ namespace Chakilo {
                 }
                 throw new JtSQLWorkNotRunningException();
             }
+
+            // 停止
+
+
+            // 从字典中删除
+
 
         }
 

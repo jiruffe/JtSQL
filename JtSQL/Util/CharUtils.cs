@@ -1,6 +1,6 @@
 ﻿// ====================================================================== //
 //
-//  StringUtils
+//  CharUtils
 //  Chakilo.Util
 // 
 //  Created by Chakilo on 1/9/2018 4:47:05 PM.
@@ -10,14 +10,12 @@
 // ====================================================================== //
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Chakilo.Util {
     /// <summary>
     /// 字符、字符串处理
     /// </summary>
-    internal static class StringUtils {
+    internal static class CharUtils {
 
         #region 常量
 

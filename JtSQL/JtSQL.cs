@@ -9,12 +9,7 @@
 // 
 // ====================================================================== //
 
-using Chakilo;
-using Chakilo.Delegate;
 using Chakilo.Linq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Chakilo {
     public static class JtSQL {

@@ -1,7 +1,7 @@
 ﻿// ====================================================================== //
 //
 //  Token
-//  Chakilo.Interpreter
+//  Chakilo.Linq
 // 
 //  Created by Chakilo on 12/25/2017 3:00:48 PM.
 //  Copyright © 2017 Chakilo. All rights reserved.
@@ -10,10 +10,8 @@
 // ====================================================================== //
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Chakilo.Interpreter {
+namespace Chakilo.Linq {
 
     /// <summary>
     /// TOKEN类型

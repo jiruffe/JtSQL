@@ -9,11 +9,10 @@
 // 
 // ====================================================================== //
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Chakilo.Util;
 using Chakilo.Exception;
+using Chakilo.Linq;
+using Chakilo.Util;
+using System.Collections.Generic;
 
 namespace Chakilo.Interpreter {
     /// <summary>
@@ -176,8 +175,17 @@ namespace Chakilo.Interpreter {
 
                     case TokenType.JsInSqlStart:
 
-                        // 状态变换
-                        now = SynState.JsInSql;
+                        if (SynState.SqlInJs == now) {
+
+                            // 状态变换
+                            now = SynState.JsInSql;
+
+                        } else {
+
+                            // 其它情况 应该视作普通token 直接加入结果
+                            rst += token.OriginalString;
+
+                        }
 
                         break;
 

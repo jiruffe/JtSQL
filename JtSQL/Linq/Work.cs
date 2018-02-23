@@ -9,11 +9,9 @@
 // 
 // ====================================================================== //
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Chakilo.Delegate;
 using Chakilo.Exception;
+using System;
 
 namespace Chakilo.Linq {
     /// <summary>
