@@ -114,7 +114,7 @@ namespace Chakilo.Interpreter {
         /// <param name="end_index"></param>
         /// <param name="tokenType"></param>
         /// <returns></returns>
-        private static Token ProduceNewToken(string jtsql, List<Token> token_list, Token last_token, long start_index, long end_index, long line_number, TokenType tokenType) {
+        private static Token ProduceNewToken(string jtsql, List<Token> token_list, Token last_token, long start_index, long end_index, long line_number, TokenType token_type) {
             // 与上个token之间有普通js代码
             if (last_token.IndexEnd + 1 != start_index) {
                 // 先产生前面的普通token
@@ -123,10 +123,36 @@ namespace Chakilo.Interpreter {
                 last_token = dft_token;
             }
             // 新token
-            Token new_token = new Token(tokenType, start_index, end_index, line_number, jtsql.Substring(Convert.ToInt32(start_index), Convert.ToInt32(end_index - start_index + 1)));
+            Token new_token = new Token(token_type, start_index, end_index, line_number, jtsql.Substring(Convert.ToInt32(start_index), Convert.ToInt32(end_index - start_index + 1)));
             token_list.Add(new_token);
 
             return new_token;
+        }
+
+        /// <summary>
+        /// 产生新TOKEN
+        /// </summary>
+        /// <param name="new_state"></param>
+        /// <param name="new_token"></param>
+        /// <param name="jtsql"></param>
+        /// <param name="token_list"></param>
+        /// <param name="last_token"></param>
+        /// <param name="start_index"></param>
+        /// <param name="end_index"></param>
+        /// <param name="line_number"></param>
+        /// <param name="tokenType"></param>
+        private static void ProduceNewToken(ref LexState new_state, ref Token new_token, bool is_producing_new_token, string jtsql, List<Token> token_list, Token last_token, long start_index, long end_index, long line_number, TokenType token_type) {
+
+            if (is_producing_new_token) {
+
+                // 产生新token
+                new_token = ProduceNewToken(jtsql, token_list, last_token, start_index, end_index, line_number, token_type);
+
+                // 返回至普通状态
+                new_state = LexState.Default;
+
+            }
+
         }
 
         #endregion
@@ -345,12 +371,7 @@ namespace Chakilo.Interpreter {
                 }
 
                 // 产生新token
-                if (is_producing_new_token) {
-                    last_token = ProduceNewToken(jtsql, token_list, last_token, temp_token_start_index, i, line, new_token_type);
-
-                    // 返回至普通状态
-                    now = LexState.Default;
-                }
+                ProduceNewToken(ref now, ref last_token, is_producing_new_token, jtsql, token_list, last_token, temp_token_start_index, i, line, new_token_type);
 
                 // 行数
                 if (c.IsNewLine())
@@ -362,19 +383,16 @@ namespace Chakilo.Interpreter {
 
                 // 重进本次循环
                 re_loop:
+                // 回退索引
                 i--;
                 continue;
 
                 // 产生新token 然后重进本次循环
                 prdc_new_token_then_re_loop:
+                // 回退索引
                 i--;
                 // 产生新token
-                if (is_producing_new_token) {
-                    last_token = ProduceNewToken(jtsql, token_list, last_token, temp_token_start_index, i, line, new_token_type);
-
-                    // 返回至普通状态
-                    now = LexState.Default;
-                }
+                ProduceNewToken(ref now, ref last_token, is_producing_new_token, jtsql, token_list, last_token, temp_token_start_index, i, line, new_token_type);
                 continue;
 
             }
