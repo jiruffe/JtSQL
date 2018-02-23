@@ -12,7 +12,7 @@ An interpreter implemented with .Net Core for JtSQL
 
 - [x] Hello World
 - [x] Lexer
-- [ ] Parser
+- [x] Parser
 - [ ] SQL Executor
 
 ## How-to
