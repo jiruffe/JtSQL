@@ -41,10 +41,10 @@ Chakilo.JtSQL.Run(new Chakilo.Linq.Work("Your JtSQL code here"));
 	
 * Inline comments supported.
 
-	```js
-	// get id by username
-	var user_id = $<SELECT user_id FROM `user` WHERE username = {{username}} LIMIT 1;>
-	```
+    ```js
+    // get id by username
+    var user_id = $<SELECT user_id FROM `user` WHERE username = {{username}} LIMIT 1;>
+    ```
 
 ## Examples
 
