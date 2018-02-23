@@ -26,7 +26,7 @@ Chakilo.JtSQL.Run(new Chakilo.Linq.Work("Your JtSQL code here"));
 * Using placeholder in sql.
 
     ```js
-    <SELECT * FROM `user` WHERE user_id > {{0}} AND user_id < {{Math.abs(5)}};>
+    $<SELECT * FROM `user` WHERE user_id > {{0}} AND user_id < {{Math.abs(5)}};>
     ```
     will be compile into
     ```js
