@@ -23,7 +23,7 @@ Chakilo.JtSQL.Run(new Chakilo.Linq.Work("Your JtSQL code here"));
 
 ## Differences from JtSQL-for-Java
 
-* Using placeholder in sql.
+* Using placeholder in sql().
 
     ```js
     $<SELECT * FROM `user` WHERE user_id > {{0}} AND user_id < {{Math.abs(5)}};>
