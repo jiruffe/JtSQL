@@ -98,6 +98,8 @@ namespace Chakilo.Interpreter {
                     continue;
                 }
 
+#if false
+
                 // 根据当前状态
                 switch (now) {
 
@@ -117,6 +119,8 @@ namespace Chakilo.Interpreter {
                         break;
 
                 }
+
+#endif
 
                 // 根据token类型
                 switch (token.Type) {
@@ -204,9 +208,9 @@ namespace Chakilo.Interpreter {
 
         }
 
-        #endregion
+#endregion
 
-        #endregion
+#endregion
 
     }
 }
