@@ -299,7 +299,7 @@ namespace Chakilo.Interpreter {
                             new_token_type = TokenType.SqlInJsEnd;
 
                             // 这个字符实际上是提前读取 因此须重新判断
-                            i--;
+                            goto prdc_new_token_then_re_loop;
 
                         } else {
                             // 返回普通状态
@@ -362,6 +362,18 @@ namespace Chakilo.Interpreter {
                 // 重进本次循环
                 re_loop:
                 i--;
+                continue;
+
+                // 产生新token 然后重进本次循环
+                prdc_new_token_then_re_loop:
+                i--;
+                // 产生新token
+                if (is_producing_new_token) {
+                    last_token = ProduceNewToken(jtsql, token_list, last_token, temp_token_start_index, i, line, new_token_type);
+
+                    // 返回至普通状态
+                    now = LexState.Default;
+                }
                 continue;
 
             }
