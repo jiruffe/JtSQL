@@ -28,7 +28,7 @@ Chakilo.JtSQL.Run(new Chakilo.Linq.Work("Your JtSQL code here"));
     ```js
     $<SELECT * FROM `user` WHERE user_id > {{0}} AND user_id < {{Math.abs(5)}};>
     ```
-    will be compile into
+    will be compiled into
     ```js
     sql("SELECT * FROM `user` WHERE user_id > ? AND user_id < ?;", 0, Math.abs(5))
     ```
