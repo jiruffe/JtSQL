@@ -24,5 +24,10 @@ namespace Chakilo.Util {
         /// </summary>
         internal const string SqlVarPlaceholder = "?";
 
+        /// <summary>
+        /// $&lt;替换
+        /// </summary>
+        internal const string SqlInJsStartReplacement = "sql(\"";
+
     }
 }

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Chakilo.Util;
+using Chakilo.Exception;
 
 namespace Chakilo.Interpreter {
     /// <summary>
@@ -133,16 +134,63 @@ namespace Chakilo.Interpreter {
                         break;
 
                     case TokenType.SqlInJsStart:
-
+                        if (SynState.Default != now) {
+                            // $<>不能直接内嵌
+                            throw new JtSQLCompileTimeException(string.Format("Invalid expression term '$<' at line {0}.", token.LineNumber));
+                        } else {
+                            // 替换内容加入结果
+                            rst += Constant.SqlInJsStartReplacement;
+                            // 状态变换
+                            now = SynState.SqlInJs;
+                        }
                         break;
 
                     case TokenType.SqlInJsEnd:
+                        if (SynState.SqlInJs == now) {
+                            // 结束
+                            // 要加入的字符串
+                            string sta = "\"";
+                            foreach (var v in vars) {
+                                sta += ", " + v;
+                            }
+                            sta += ")";
+
+                            // 清空变量
+                            vars.Clear();
+
+                            // 加入
+                            rst += sta;
+
+                            // 状态变换
+                            now = SynState.Default;
+
+                        } else {
+                            // 其它情况 应该视作大于符号 直接加入结果
+                            rst += token.OriginalString;
+                        }
                         break;
 
                     case TokenType.JsInSqlStart:
+
+                        // 状态变换
+                        now = SynState.JsInSql;
+
                         break;
 
                     case TokenType.JsInSqlEnd:
+
+                        if (SynState.JsInSql == now) {
+
+                            // 状态变换
+                            now = SynState.SqlInJs;
+
+                        } else {
+
+                            // 其它情况 应该视作普通token 直接加入结果
+                            rst += token.OriginalString;
+
+                        }
+
                         break;
 
                     default:

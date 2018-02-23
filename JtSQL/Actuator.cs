@@ -9,6 +9,9 @@
 // 
 // ====================================================================== //
 
+// DEBUG模式
+#define JTSQL_DEBUG
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,7 +22,7 @@ using Chakilo.Delegate;
 using Chakilo.Exception;
 using Chakilo.Interpreter;
 using Chakilo.Linq;
-using Chakilo.SqlExecutor;
+using Chakilo.JtsqlExecutor;
 
 namespace Chakilo {
     /// <summary>
@@ -91,14 +94,19 @@ namespace Chakilo {
 
             // 词法分析
             List<Token> token_list = Lexer.Tokenize(jtsql);
+
+            // 语法分析 翻译
+            string code_compiled = Parser.Parse(token_list);
+
+#if JTSQL_DEBUG
+            Console.WriteLine(jtsql);
+            Console.WriteLine("");
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(token_list));
+            Console.WriteLine("");
+            Console.WriteLine(code_compiled);
+#endif
 
-            // 语法分析
-
-            // 翻译
-
-
-            return null;
+            return code_compiled;
         }
 
         /// <summary>
