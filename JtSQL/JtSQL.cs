@@ -17,7 +17,7 @@ namespace Chakilo {
         #region 成员
 
         /// <summary>
-        /// JtSQL制动器
+        /// JtSQL致动器
         /// </summary>
         private static readonly Actuator _actuator;
 
