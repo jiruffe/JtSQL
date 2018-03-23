@@ -40,5 +40,25 @@ namespace Chakilo.JavaScriptEngine {
 
         #endregion
 
+        #region 方法
+
+        #region 私有方法
+
+        #endregion
+
+        #region 公开方法
+
+        /// <summary>
+        /// 注入代码
+        /// </summary>
+        /// <param name="source"></param>
+        internal void Execute(String source) {
+            _engine.Execute(source);
+        }
+
+        #endregion
+
+        #endregion
+
     }
 }

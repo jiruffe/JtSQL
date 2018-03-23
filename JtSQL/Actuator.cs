@@ -15,6 +15,7 @@
 using Chakilo.Delegate;
 using Chakilo.Exception;
 using Chakilo.Interpreter;
+using Chakilo.JavaScriptEngine;
 using Chakilo.JtsqlExecutor;
 using Chakilo.Linq;
 using System;
@@ -39,6 +40,11 @@ namespace Chakilo {
         /// 工作对应的线程
         /// </summary>
         private ConcurrentDictionary<Work, Thread> _work_lk_thread;
+
+        /// <summary>
+        /// JS引擎
+        /// </summary>
+        private JSEngine _engine;
 
         #endregion
 
@@ -77,6 +83,8 @@ namespace Chakilo {
         private void Init() {
             // 工作对应的线程
             _work_lk_thread = new ConcurrentDictionary<Work, Thread>();
+            // 引擎 注入执行器
+            _engine = new JSEngine(typeof(Executor).Assembly);
         }
 
         #endregion
